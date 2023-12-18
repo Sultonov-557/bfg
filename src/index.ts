@@ -32,8 +32,9 @@ async function start() {
 
 	bot.use(i18n);
 
-	DataBase.initialize();
+	await DataBase.initialize();
 
-	loadRoutes(bot);
 	loadMenus(bot);
+	loadRoutes(bot);
+	console.log("bot loaded");
 }

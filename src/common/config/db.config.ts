@@ -11,5 +11,5 @@ export const DBConfig: DataSourceOptions = {
 	database: "bfg",
 	synchronize: true,
 	entities: [User, Bank],
-	connectTimeout: 15000,
+	connectTimeout: 20000,
 };

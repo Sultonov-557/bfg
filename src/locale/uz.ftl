@@ -1,11 +1,13 @@
 balance=
-    ISM: {$name}
-    PUL: {$money}
+    Ism👤: {$name}
+    Pul💲: {$money}
 bank=
-    ISM: {$name}
-    PUL: {$money}
-    LEVEL: {$level}
+    Ism👤: {$name}
+    Pul💲: {$money}
+    Level⏫: {$level}
 
-new_bank=bank ochildi
-have_bank= sizda bank bor
-no_bank=sizda ban yo'q
+new_bank=Bank ochildi.
+have_bank=Sizda bank bor.
+no_bank=Sizda bank yo'q.
+bank_take=Pullarni olish
+bank_upgrade=Bankni kuchaytirish
