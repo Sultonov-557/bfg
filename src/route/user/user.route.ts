@@ -7,3 +7,7 @@ export const UserRoute = new Composer<NewContext>();
 UserRoute.hears(/^b$/i, async (ctx) => {
 	ctx.reply(UserService.getUser(ctx));
 });
+
+UserRoute.hears(/^top10$/i, async (ctx) => {
+	ctx.reply(await UserService.top10(ctx));
+});

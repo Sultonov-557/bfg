@@ -11,6 +11,12 @@ export class Bank {
 	@Column({ default: 1 })
 	level: number;
 
+	@Column({ default: 1 })
+	securityLevel: number;
+
 	@Column({ default: Date.now(), type: "bigint" })
 	LastMoneyGivenTime: number;
+
+	@Column({ default: Date.now(), type: "bigint" })
+	LastRobberyTime: number;
 }

@@ -7,8 +7,9 @@ import { BankController } from "./bank.controller";
 export const BankRoute = new Composer<NewContext>();
 
 setInterval(async () => {
-	await BankController.CheckUpdates();
-}, 10000);
+	await BankController.CheckUpdatesForMoney();
+	await BankController.CheckUpdatesForRobbery();
+}, 30000);
 
 BankRoute.hears(/^bank$/i, async (ctx) => {
 	const message = await BankService.getBank(ctx);

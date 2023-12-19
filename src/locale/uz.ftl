@@ -13,3 +13,6 @@ no_bank=Sizda bank yo'q.
 bank_take=Pullarni olish
 bank_upgrade=Bankni kuchaytirish
 no_money=Sizda yetarli pul yo'q
+top10=
+    Top 10 o'yinchilar:
+    {$list}

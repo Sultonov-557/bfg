@@ -9,13 +9,19 @@ export const UserController = {
 
 		return user;
 	},
-	async removeMoney(ID: number, money: number) {
+	async top10() {
+		const top10 = await UserRepo.find({ order: { money: "DESC" }, take: 10 });
+		return top10;
+	},
+	async removeMoney(ID: number, money: number, ignore: boolean = false) {
 		const user = await UserRepo.findOneBy({ ID });
 		if (!user) return false;
 
-		if (user.money < money) return false;
+		if (user.money < money && !ignore) return false;
 
 		user.money -= money;
+
+		if (user.money < 0 && ignore) user.money = 0;
 		await UserRepo.save(user);
 		return true;
 	},
