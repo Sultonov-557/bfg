@@ -2,12 +2,22 @@ import { NewContext } from "../../common/types/NewContext.type";
 import { BankController } from "./bank.controller";
 
 export const BankService = {
-	getBank(ctx: NewContext) {
+	async getBank(ctx: NewContext) {
 		if (!ctx.user.bank) {
-			return ctx.t("no_bank");
+			return { text: ctx.t("no_bank"), keyboard: false };
 		}
 
-		return ctx.t("bank", { money: ctx.user.bank.money, level: ctx.user.bank.level });
+		const time = await BankController.GetUpdateTime(ctx.user.bank.ID);
+		const minute = (time / 1000 / 60).toFixed(1);
+
+		return {
+			text: ctx.t("bank", {
+				money: ctx.user.bank.money,
+				level: ctx.user.bank.level,
+				time: minute,
+			}),
+			keyboard: true,
+		};
 	},
 	async newBank(ctx: NewContext) {
 		if (ctx.user.bank) {
@@ -16,7 +26,14 @@ export const BankService = {
 
 		const message = await BankController.newBank(ctx.user.ID);
 
-		if (!message.success) return ctx.t("error");
+		if (!message.success) {
+			if (message.errcode == 3) {
+				return ctx.t("no_money");
+			}
+			if (message.errcode == 2) {
+				return ctx.t("have_bank");
+			}
+		}
 
 		return ctx.t("new_bank");
 	},

@@ -10,4 +10,7 @@ export class Bank {
 
 	@Column({ default: 1 })
 	level: number;
+
+	@Column({ default: Date.now(), type: "bigint" })
+	LastMoneyGivenTime: number;
 }

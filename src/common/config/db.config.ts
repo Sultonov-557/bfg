@@ -12,4 +12,7 @@ export const DBConfig: DataSourceOptions = {
 	synchronize: true,
 	entities: [User, Bank],
 	connectTimeout: 20000,
+	cache: true,
+	bigNumberStrings: true,
+	supportBigNumbers: true,
 };

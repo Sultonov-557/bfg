@@ -1,16 +1,24 @@
 import { Composer } from "grammy";
 import { NewContext } from "../../common/types/NewContext.type";
-import { AuthGuard } from "../../middleware/AuthGuard";
-import { BankController } from "./bank.controller";
 import { BankService } from "./bank.service";
 import { Menus } from "../../common/managers/menus.manager";
+import { BankController } from "./bank.controller";
 
 export const BankRoute = new Composer<NewContext>();
 
+setInterval(async () => {
+	await BankController.CheckUpdates();
+}, 10000);
+
 BankRoute.hears(/^bank$/i, async (ctx) => {
-	ctx.reply(BankService.getBank(ctx), { reply_markup: Menus.bankMenu });
+	const message = await BankService.getBank(ctx);
+	if (message.keyboard) {
+		ctx.reply(message.text, { reply_markup: Menus.bankMenu });
+	} else {
+		ctx.reply(message.text);
+	}
 });
 
-BankRoute.hears(/^bank ochish$/, async (ctx) => {
+BankRoute.hears(/^bank ochish$/i, async (ctx) => {
 	ctx.reply(await BankService.newBank(ctx));
 });
