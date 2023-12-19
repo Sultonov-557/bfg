@@ -4,16 +4,25 @@ import { User } from "../../entity/user.entity";
 const UserRepo = DataBase.getRepository(User);
 
 export const UserController = {
-	async getUser(ID: number) {
+	async GetUser(ID: number) {
 		const user = await UserRepo.findOneBy({ ID });
 
 		return user;
 	},
-	async top10() {
+	async Top10() {
 		const top10 = await UserRepo.find({ order: { money: "DESC" }, take: 10 });
 		return top10;
 	},
-	async removeMoney(ID: number, money: number, ignore: boolean = false) {
+	async AddMoney(ID: number, money: number) {
+		const user = await UserRepo.findOneBy({ ID });
+		if (!user) return false;
+
+		user.money += money;
+
+		await UserRepo.save(user);
+		return true;
+	},
+	async RemoveMoney(ID: number, money: number, ignore: boolean = false) {
 		const user = await UserRepo.findOneBy({ ID });
 		if (!user) return false;
 

@@ -22,7 +22,7 @@ export const BankController = {
 		if (!user) return { success: false, errcode: 1 };
 		if (user.bank) return { success: false, errcode: 2 };
 
-		if (!(await UserController.removeMoney(ID, BANK_COST))) {
+		if (!(await UserController.RemoveMoney(ID, BANK_COST))) {
 			return { success: false, errcode: 3 };
 		}
 
@@ -33,18 +33,30 @@ export const BankController = {
 		await UserRepo.save(user);
 		return { success: true };
 	},
-	async Upgrade(ID: number) {
+	async UpgradeForMoney(ID: number) {
 		const bank = await BankRepo.findOneBy({ ID });
 		if (!bank) return { success: false, errcode: 1 };
 		const user = await UserRepo.findOneBy({ bank });
 		if (!user) return { success: false, errcode: 2 };
 		const cost = user.bank.level * LEVEL_COST_MULTIPLIER;
-		const success = await UserController.removeMoney(user.ID, cost);
+		const success = await UserController.RemoveMoney(user.ID, cost);
 		if (success) {
 			bank.level += 1;
 			await BankRepo.save(bank);
 		}
-		return success;
+		return { success, errcode: 3 };
+	},
+	async TakeAllMoney(ID: number) {
+		const bank = await BankRepo.findOneBy({ ID });
+		if (!bank) return { success: false, errcode: 1 };
+		const user = await UserRepo.findOneBy({ bank });
+		if (!user) return { success: false, errcode: 2 };
+
+		if (bank.money <= 0) return { success: false, errcode: 3 };
+
+		await UserController.AddMoney(user.ID, bank.money);
+		await this.RemoveMoney(ID, bank.money);
+		return { success: true };
 	},
 	async GetUpdateTime(ID: number) {
 		const bank = await BankRepo.findOneBy({ ID });
@@ -108,7 +120,7 @@ export const BankController = {
 		if (bank.money > 0) {
 			const user = await UserRepo.findOneBy(bank);
 			if (!user) return false;
-			await UserController.removeMoney(user?.ID, -bank.money);
+			await UserController.RemoveMoney(user?.ID, -bank.money);
 			bank.money = 0;
 		}
 		await BankRepo.save(bank);

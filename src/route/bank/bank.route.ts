@@ -12,7 +12,7 @@ setInterval(async () => {
 }, 30000);
 
 BankRoute.hears(/^bank$/i, async (ctx) => {
-	const message = await BankService.getBank(ctx);
+	const message = await BankService.GetBank(ctx);
 	if (message.keyboard) {
 		ctx.reply(message.text, { reply_markup: Menus.bankMenu });
 	} else {
@@ -21,5 +21,5 @@ BankRoute.hears(/^bank$/i, async (ctx) => {
 });
 
 BankRoute.hears(/^bank ochish$/i, async (ctx) => {
-	ctx.reply(await BankService.newBank(ctx));
+	ctx.reply(await BankService.NewBank(ctx));
 });

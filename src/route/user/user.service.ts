@@ -6,7 +6,7 @@ export const UserService = {
 		return ctx.t("balance");
 	},
 	async top10(ctx: NewContext) {
-		const top10 = await UserController.top10();
+		const top10 = await UserController.Top10();
 		let list = "";
 		for (let i in top10) {
 			list += `${parseInt(i) + 1}. ${top10[i].name} - ${top10[i].money}\n`;
