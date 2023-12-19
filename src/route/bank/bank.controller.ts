@@ -38,7 +38,7 @@ export const BankController = {
 		if (!bank) return { success: false, errcode: 1 };
 		const user = await UserRepo.findOneBy({ bank });
 		if (!user) return { success: false, errcode: 2 };
-		const cost = user.bank.level * LEVEL_COST_MULTIPLIER;
+		const cost = bank.level * LEVEL_COST_MULTIPLIER;
 		const success = await UserController.RemoveMoney(user.ID, cost);
 		if (success) {
 			bank.level += 1;

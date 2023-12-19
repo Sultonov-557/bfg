@@ -10,7 +10,7 @@ bank=
 
 new_bank=Bank ochildi.
 have_bank=Sizda bank bor.
-no_bank=Sizda bank yo'q.
+no_bank=Sizda bank yo'q. Bank ochish uchun "bank ochish" deb ayting
 bank_take=Pullarni olish
 bank_upgrade=Bankni kuchaytirish
 bank_no_money=Bankda pul yo'q

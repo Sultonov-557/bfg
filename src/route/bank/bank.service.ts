@@ -49,7 +49,7 @@ export const BankService = {
 		}
 		return ctx.t("bank_no_money");
 	},
-	async UpgradeBank(ctx: NewContext) {
+	async UpgradeForMoney(ctx: NewContext) {
 		if (!ctx.user.bank) {
 			return ctx.t("no_bank");
 		}

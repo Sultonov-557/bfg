@@ -9,5 +9,8 @@ bankMenu.dynamic((ctx, range) => {
 		const message = await BankService.TakeMoney(ctx);
 		ctx.reply(message);
 	});
-	range.text(ctx.t("bank_upgrade"));
+	range.text(ctx.t("bank_upgrade"), async (ctx) => {
+		const message = await BankService.UpgradeForMoney(ctx);
+		ctx.reply(message);
+	});
 });
