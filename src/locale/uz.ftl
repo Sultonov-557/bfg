@@ -16,6 +16,7 @@ bank_upgrade=Bankni kuchaytirish
 bank_no_money=Bankda pul yo'q
 bank_take_success=Bankdan pullar olindi
 bank_upgrade_success=Bank kuchaytirildi
+bank_security_upgrade=Hafsizlikni kuchaytirish
 no_money=Sizda yetarli pul yo'q
 top10=
     Top 10 o'yinchilar:

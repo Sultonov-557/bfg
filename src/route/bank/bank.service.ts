@@ -62,4 +62,17 @@ export const BankService = {
 			return ctx.t("no_money");
 		}
 	},
+	async UpgradeForSecrity(ctx: NewContext) {
+		if (!ctx.user.bank) {
+			return ctx.t("no_bank");
+		}
+
+		const message = await BankController.UpgradeForSecurity(ctx.user.bank.ID);
+
+		if (message.success) {
+			return ctx.t("bank_upgrade_success");
+		} else {
+			return ctx.t("no_money");
+		}
+	},
 };

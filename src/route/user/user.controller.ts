@@ -1,3 +1,4 @@
+import { bot } from "../..";
 import { DataBase } from "../../common/managers/database.manager";
 import { User } from "../../entity/user.entity";
 
@@ -12,6 +13,17 @@ export const UserController = {
 	async Top10() {
 		const top10 = await UserRepo.find({ order: { money: "DESC" }, take: 10 });
 		return top10;
+	},
+	async SendRobbedMessage(ID: number, success: boolean) {
+		const user = await this.GetUser(ID);
+		if (!user) return;
+		try {
+			if (success) {
+				bot.api.sendMessage(user.telegramID, "Sizning bankingiz o'marildi");
+			} else {
+				bot.api.sendMessage(user.telegramID, "Sizning bankingizni o'marishga urunishdi");
+			}
+		} catch {}
 	},
 	async AddMoney(ID: number, money: number) {
 		const user = await UserRepo.findOneBy({ ID });

@@ -8,11 +8,10 @@ import path from "path";
 import { loadMenus } from "./common/managers/menus.manager";
 import { AuthGuard } from "./middleware/AuthGuard";
 
+export const bot = new Bot<NewContext>(env.TOKEN);
 start();
 
 async function start() {
-	const bot = new Bot<NewContext>(env.TOKEN);
-
 	bot.start({
 		onStart: async () => {
 			console.log("bot started");

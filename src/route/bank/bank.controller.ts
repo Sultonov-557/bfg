@@ -4,7 +4,6 @@ import { Bank } from "../../entity/bank.entity";
 import { User } from "../../entity/user.entity";
 import { UserController } from "../user/user.controller";
 import { randomInt } from "crypto";
-import { balanceMenu } from "../../menu/balance.menu";
 
 const UserRepo = DataBase.getRepository(User);
 const BankRepo = DataBase.getRepository(Bank);
@@ -15,6 +14,7 @@ const GIVE_MONEY = 100;
 const BANK_COST = 400;
 const LEVEL_MULTIPLIER = 1000;
 const LEVEL_COST_MULTIPLIER = 10000;
+const SECURITY_COST_MULTIPLIER = 1000;
 
 export const BankController = {
 	async newBank(ID: number) {
@@ -42,6 +42,19 @@ export const BankController = {
 		const success = await UserController.RemoveMoney(user.ID, cost);
 		if (success) {
 			bank.level += 1;
+			await BankRepo.save(bank);
+		}
+		return { success, errcode: 3 };
+	},
+	async UpgradeForSecurity(ID: number) {
+		const bank = await BankRepo.findOneBy({ ID });
+		if (!bank) return { success: false, errcode: 1 };
+		const user = await UserRepo.findOneBy({ bank });
+		if (!user) return { success: false, errcode: 2 };
+		const cost = bank.level * SECURITY_COST_MULTIPLIER;
+		const success = await UserController.RemoveMoney(user.ID, cost);
+		if (success) {
+			bank.securityLevel += 1;
 			await BankRepo.save(bank);
 		}
 		return { success, errcode: 3 };
@@ -78,7 +91,8 @@ export const BankController = {
 	},
 	async UpdateForMoney(bank: Bank) {
 		if (bank.LastMoneyGivenTime < Date.now() - GIVE_MONEY_TIME) {
-			const giveCount = parseInt(bank.LastMoneyGivenTime / GIVE_MONEY_TIME + "");
+			const giveCount = parseInt((bank.LastMoneyGivenTime - Date.now()) / GIVE_MONEY_TIME + "");
+			console.log(giveCount);
 			const giveMoney = parseInt((GIVE_MONEY + bank.level * LEVEL_MULTIPLIER) * giveCount + "");
 			await this.AddMoney(bank.ID, giveMoney, true);
 		}
@@ -93,13 +107,17 @@ export const BankController = {
 	async PerformRobbery(ID: number, robberLevel: number) {
 		const bank = await BankRepo.findOneBy({ ID });
 		if (!bank) return false;
+		const user = await UserRepo.findOneBy({ bank });
+		if (!user) return { success: false, errcode: 2 };
 
 		if (robberLevel > bank?.securityLevel) {
 			const robbedAmount = randomInt(robberLevel * 100, robberLevel * 500);
-			bank.money -= robbedAmount;
+			await this.RemoveMoney(ID, robbedAmount);
+			await UserController.SendRobbedMessage(user.ID, true);
 		} else {
 			const robberCaughtAmount = robberLevel * 100;
 			await this.AddMoney(bank.ID, robberCaughtAmount);
+			await UserController.SendRobbedMessage(user.ID, false);
 		}
 	},
 	async AddMoney(ID: number, amount: number, resetTime: boolean = false) {
