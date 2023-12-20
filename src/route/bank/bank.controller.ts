@@ -90,7 +90,7 @@ export const BankController = {
 		}
 	},
 	async UpdateForMoney(bank: Bank) {
-		if (bank.LastMoneyGivenTime < Date.now() - GIVE_MONEY_TIME) {
+		if (bank.LastMoneyGivenTime > Date.now() - GIVE_MONEY_TIME) {
 			const giveCount = parseInt((bank.LastMoneyGivenTime - Date.now()) / GIVE_MONEY_TIME + "");
 			console.log(giveCount);
 			const giveMoney = parseInt((GIVE_MONEY + bank.level * LEVEL_MULTIPLIER) * giveCount + "");
