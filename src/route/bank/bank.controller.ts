@@ -75,7 +75,7 @@ export const BankController = {
 		const bank = await BankRepo.findOneBy({ ID });
 		if (!bank) return 0;
 
-		return parseInt(bank.LastMoneyGivenTime + "") + GIVE_MONEY_TIME - Date.now();
+		return (parseInt(bank.LastMoneyGivenTime + "") + GIVE_MONEY_TIME - Date.now()) % GIVE_MONEY_TIME;
 	},
 	async CheckUpdatesForMoney() {
 		const banks = await BankRepo.find({ where: { LastMoneyGivenTime: LessThan(Date.now() - GIVE_MONEY_TIME) } });
@@ -90,9 +90,8 @@ export const BankController = {
 		}
 	},
 	async UpdateForMoney(bank: Bank) {
-		if (bank.LastMoneyGivenTime > Date.now() - GIVE_MONEY_TIME) {
-			const giveCount = parseInt((bank.LastMoneyGivenTime - Date.now()) / GIVE_MONEY_TIME + "");
-			console.log(giveCount);
+		if (bank.LastMoneyGivenTime < Date.now() - GIVE_MONEY_TIME) {
+			const giveCount = parseInt((Date.now() - bank.LastMoneyGivenTime) / GIVE_MONEY_TIME + "");
 			const giveMoney = parseInt((GIVE_MONEY + bank.level * LEVEL_MULTIPLIER) * giveCount + "");
 			await this.AddMoney(bank.ID, giveMoney, true);
 		}

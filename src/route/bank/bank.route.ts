@@ -9,7 +9,7 @@ export const BankRoute = new Composer<NewContext>();
 setInterval(async () => {
 	await BankController.CheckUpdatesForMoney();
 	await BankController.CheckUpdatesForRobbery();
-}, 30000);
+}, 10000);
 
 BankRoute.hears(/^bank$/i, async (ctx) => {
 	const message = await BankService.GetBank(ctx);

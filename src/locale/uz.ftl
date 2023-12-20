@@ -21,3 +21,4 @@ no_money=Sizda yetarli pul yo'q
 top10=
     Top 10 o'yinchilar:
     {$list}
+no_access=siz bundey qila olmaysiz

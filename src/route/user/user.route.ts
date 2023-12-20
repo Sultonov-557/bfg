@@ -8,6 +8,6 @@ UserRoute.hears(/^b$/i, async (ctx) => {
 	ctx.reply(UserService.getUser(ctx));
 });
 
-UserRoute.hears(/^top10$/i, async (ctx) => {
+UserRoute.hears(/^top$/i, async (ctx) => {
 	ctx.reply(await UserService.top10(ctx));
 });

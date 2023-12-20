@@ -9,6 +9,9 @@ export class User {
 	@Column()
 	name: string;
 
+	@Column({ default: "oddiy" })
+	role: string;
+
 	@Column()
 	telegramID: string;
 
