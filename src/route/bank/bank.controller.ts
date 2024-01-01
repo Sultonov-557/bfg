@@ -1,3 +1,4 @@
+//IMPORTS
 import { LessThan } from "typeorm";
 import { DataBase } from "../../common/managers/database.manager";
 import { Bank } from "../../entity/bank.entity";
@@ -5,9 +6,11 @@ import { User } from "../../entity/user.entity";
 import { UserController } from "../user/user.controller";
 import { randomInt } from "crypto";
 
+//REPOSITORYIES
 const UserRepo = DataBase.getRepository(User);
 const BankRepo = DataBase.getRepository(Bank);
 
+//CONSTS
 const GIVE_MONEY_TIME = 1000 * 60 * 60;
 const ROBBERY_TIME = 1000 * 60 * 60 * 24 * 2;
 const GIVE_MONEY = 100;
@@ -16,8 +19,9 @@ const LEVEL_MULTIPLIER = 1000;
 const LEVEL_COST_MULTIPLIER = 10000;
 const SECURITY_COST_MULTIPLIER = 1000;
 
-export const BankController = {
-	async newBank(ID: number) {
+//CONTROLLER
+export class BankController {
+	static async newBank(ID: number) {
 		const user = await UserRepo.findOne({ where: { ID } });
 		if (!user) return { success: false, errcode: 1 };
 		if (user.bank) return { success: false, errcode: 2 };
@@ -32,8 +36,9 @@ export const BankController = {
 		await BankRepo.save(bank);
 		await UserRepo.save(user);
 		return { success: true };
-	},
-	async UpgradeForMoney(ID: number) {
+	}
+
+	static async UpgradeForMoney(ID: number) {
 		const bank = await BankRepo.findOneBy({ ID });
 		if (!bank) return { success: false, errcode: 1 };
 		const user = await UserRepo.findOneBy({ bank });
@@ -45,8 +50,9 @@ export const BankController = {
 			await BankRepo.save(bank);
 		}
 		return { success, errcode: 3 };
-	},
-	async UpgradeForSecurity(ID: number) {
+	}
+
+	static async UpgradeForSecurity(ID: number) {
 		const bank = await BankRepo.findOneBy({ ID });
 		if (!bank) return { success: false, errcode: 1 };
 		const user = await UserRepo.findOneBy({ bank });
@@ -58,8 +64,9 @@ export const BankController = {
 			await BankRepo.save(bank);
 		}
 		return { success, errcode: 3 };
-	},
-	async TakeAllMoney(ID: number) {
+	}
+
+	static async TakeAllMoney(ID: number) {
 		const bank = await BankRepo.findOneBy({ ID });
 		if (!bank) return { success: false, errcode: 1 };
 		const user = await UserRepo.findOneBy({ bank });
@@ -70,40 +77,46 @@ export const BankController = {
 		await UserController.AddMoney(user.ID, bank.money);
 		await this.RemoveMoney(ID, bank.money);
 		return { success: true };
-	},
-	async GetUpdateTime(ID: number) {
+	}
+
+	static async GetUpdateTime(ID: number) {
 		const bank = await BankRepo.findOneBy({ ID });
 		if (!bank) return 0;
 
 		return (parseInt(bank.LastMoneyGivenTime + "") + GIVE_MONEY_TIME - Date.now()) % GIVE_MONEY_TIME;
-	},
-	async CheckUpdatesForMoney() {
+	}
+
+	static async CheckUpdatesForMoney() {
 		const banks = await BankRepo.find({ where: { LastMoneyGivenTime: LessThan(Date.now() - GIVE_MONEY_TIME) } });
 		for (let bank of banks) {
 			await this.UpdateForMoney(bank);
 		}
-	},
-	async CheckUpdatesForRobbery() {
+	}
+
+	static async CheckUpdatesForRobbery() {
 		const banks = await BankRepo.find({ where: { LastRobberyTime: LessThan(Date.now() - ROBBERY_TIME) } });
 		for (let bank of banks) {
 			await this.UpdateForRobbery(bank);
 		}
-	},
-	async UpdateForMoney(bank: Bank) {
+	}
+
+	static async UpdateForMoney(bank: Bank) {
 		if (bank.LastMoneyGivenTime < Date.now() - GIVE_MONEY_TIME) {
 			const giveCount = parseInt((Date.now() - bank.LastMoneyGivenTime) / GIVE_MONEY_TIME + "");
 			const giveMoney = parseInt((GIVE_MONEY + bank.level * LEVEL_MULTIPLIER) * giveCount + "");
 			await this.AddMoney(bank.ID, giveMoney, true);
 		}
-	},
-	async UpdateForRobbery(bank: Bank) {
+	}
+
+	static async UpdateForRobbery(bank: Bank) {
 		if (bank.LastRobberyTime < Date.now() - ROBBERY_TIME) {
 			this.PerformRobbery(bank.ID, randomInt(1, bank.securityLevel + 10));
 			bank.LastRobberyTime = Date.now();
 			await BankRepo.save(bank);
 		}
-	},
-	async PerformRobbery(ID: number, robberLevel: number) {
+	}
+
+	static async PerformRobbery(ID: number, robberLevel: number) {
 		const bank = await BankRepo.findOneBy({ ID });
 		if (!bank) return false;
 		const user = await UserRepo.findOneBy({ bank });
@@ -118,8 +131,9 @@ export const BankController = {
 			await this.AddMoney(bank.ID, robberCaughtAmount);
 			await UserController.SendRobbedMessage(user.ID, false);
 		}
-	},
-	async AddMoney(ID: number, amount: number, resetTime: boolean = false) {
+	}
+
+	static async AddMoney(ID: number, amount: number, resetTime: boolean = false) {
 		const bank = await BankRepo.findOneBy({ ID });
 		if (!bank) return false;
 		bank.money += amount;
@@ -129,8 +143,9 @@ export const BankController = {
 
 		await BankRepo.save(bank);
 		return true;
-	},
-	async RemoveMoney(ID: number, amount: number) {
+	}
+
+	static async RemoveMoney(ID: number, amount: number) {
 		const bank = await BankRepo.findOneBy({ ID });
 		if (!bank) return false;
 		bank.money -= amount;
@@ -142,5 +157,5 @@ export const BankController = {
 		}
 		await BankRepo.save(bank);
 		return true;
-	},
-};
+	}
+}
