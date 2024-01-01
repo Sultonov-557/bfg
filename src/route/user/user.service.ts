@@ -1,11 +1,12 @@
 import { NewContext } from "../../common/types/NewContext.type";
 import { UserController } from "./user.controller";
 
-export const UserService = {
-	getUser(ctx: NewContext) {
+export class UserService {
+	static getUser(ctx: NewContext) {
 		return ctx.t("balance");
-	},
-	async top10(ctx: NewContext) {
+	}
+
+	static async top10(ctx: NewContext) {
 		const top10 = await UserController.Top10();
 		let list = "";
 		for (let i in top10) {
@@ -13,5 +14,5 @@ export const UserService = {
 		}
 
 		return ctx.t("top10", { list });
-	},
-};
+	}
+}

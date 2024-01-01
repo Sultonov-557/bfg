@@ -6,7 +6,6 @@ bank=
     Pul💲: {$money}
     Level⏫: {$level}
     Hafsizlik🔐: {$secLevel}
-    Keyingi Foyda Vaqti🕐:{$time} daqiqa
 
 new_bank=Bank ochildi.
 have_bank=Sizda bank bor.

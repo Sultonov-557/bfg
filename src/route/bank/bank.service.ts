@@ -1,26 +1,23 @@
 import { NewContext } from "../../common/types/NewContext.type";
 import { BankController } from "./bank.controller";
 
-export const BankService = {
-	async GetBank(ctx: NewContext) {
+export class BankService {
+	static async GetBank(ctx: NewContext) {
 		if (!ctx.user.bank) {
 			return { text: ctx.t("no_bank"), keyboard: false };
 		}
-
-		const time = await BankController.GetUpdateTime(ctx.user.bank.ID);
-		const minute = (time / 1000 / 60).toFixed(1);
 
 		return {
 			text: ctx.t("bank", {
 				money: ctx.user.bank.money,
 				level: ctx.user.bank.level,
-				secLevel: ctx.user.bank.securityLevel,
-				time: minute,
+				secLevel: ctx.user.bank.securityLevel
 			}),
 			keyboard: true,
 		};
-	},
-	async NewBank(ctx: NewContext) {
+	}
+
+	static async NewBank(ctx: NewContext) {
 		if (ctx.user.bank) {
 			return ctx.t("have_bank");
 		}
@@ -37,8 +34,9 @@ export const BankService = {
 		}
 
 		return ctx.t("new_bank");
-	},
-	async TakeMoney(ctx: NewContext) {
+	}
+
+	static async TakeMoney(ctx: NewContext) {
 		if (!ctx.user.bank) {
 			return ctx.t("no_bank");
 		}
@@ -48,8 +46,9 @@ export const BankService = {
 			return ctx.t("bank_take_success");
 		}
 		return ctx.t("bank_no_money");
-	},
-	async UpgradeForMoney(ctx: NewContext) {
+	}
+
+	static async UpgradeForMoney(ctx: NewContext) {
 		if (!ctx.user.bank) {
 			return ctx.t("no_bank");
 		}
@@ -61,8 +60,9 @@ export const BankService = {
 		} else {
 			return ctx.t("no_money");
 		}
-	},
-	async UpgradeForSecrity(ctx: NewContext) {
+	}
+
+	static async UpgradeForSecrity(ctx: NewContext) {
 		if (!ctx.user.bank) {
 			return ctx.t("no_bank");
 		}
@@ -74,5 +74,5 @@ export const BankService = {
 		} else {
 			return ctx.t("no_money");
 		}
-	},
-};
+	}
+}

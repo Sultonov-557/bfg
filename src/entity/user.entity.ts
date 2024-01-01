@@ -1,5 +1,7 @@
 import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
 import { Bank } from "./bank.entity";
+import { Farm } from "./farm.entity";
+import { RoleEnum } from "../common/enums/Role.enum";
 
 @Entity()
 export class User {
@@ -9,8 +11,8 @@ export class User {
 	@Column()
 	name: string;
 
-	@Column({ default: "oddiy" })
-	role: string;
+	@Column({ type: "enum", enum: RoleEnum, default: RoleEnum.oddiy })
+	role: RoleEnum;
 
 	@Column()
 	telegramID: string;
@@ -21,4 +23,8 @@ export class User {
 	@OneToOne(() => Bank)
 	@JoinColumn()
 	bank: Bank;
+
+	@OneToOne(() => Farm)
+	@JoinColumn()
+	farm: Farm;
 }

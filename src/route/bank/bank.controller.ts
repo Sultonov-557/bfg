@@ -79,13 +79,6 @@ export class BankController {
 		return { success: true };
 	}
 
-	static async GetUpdateTime(ID: number) {
-		const bank = await BankRepo.findOneBy({ ID });
-		if (!bank) return 0;
-
-		return (parseInt(bank.LastMoneyGivenTime + "") + GIVE_MONEY_TIME - Date.now()) % GIVE_MONEY_TIME;
-	}
-
 	static async CheckUpdatesForMoney() {
 		const banks = await BankRepo.find({ where: { LastMoneyGivenTime: LessThan(Date.now() - GIVE_MONEY_TIME) } });
 		for (let bank of banks) {
@@ -150,7 +143,7 @@ export class BankController {
 		if (!bank) return false;
 		bank.money -= amount;
 		if (bank.money > 0) {
-			const user = await UserRepo.findOneBy(bank);
+			const user = await UserRepo.findOneBy({ bank });
 			if (!user) return false;
 			await UserController.RemoveMoney(user?.ID, -bank.money);
 			bank.money = 0;

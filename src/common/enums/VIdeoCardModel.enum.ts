@@ -1,0 +1,3 @@
+export enum VideoCardModel {
+    "RTX "
+}

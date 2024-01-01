@@ -1,6 +1,8 @@
 import { DataSourceOptions } from "typeorm";
 import { User } from "../../entity/user.entity";
 import { Bank } from "../../entity/bank.entity";
+import { Farm } from "../../entity/farm.entity";
+import { VideoCard } from "../../entity/videocard.entity";
 
 export const DBConfig: DataSourceOptions = {
 	type: "mysql",
@@ -10,7 +12,7 @@ export const DBConfig: DataSourceOptions = {
 	password: "root",
 	database: "bfg",
 	synchronize: true,
-	entities: [User, Bank],
+	entities: [User, Bank, Farm, VideoCard],
 	connectTimeout: 20000,
 	cache: true,
 	bigNumberStrings: true,
