@@ -9,4 +9,6 @@ FarmRoute.hears(/^ferma$/i, AuthGuard, async (ctx) => {
 	ctx.reply(await FarmService.farm(ctx));
 });
 
-FarmRoute.hears(/^ferma ochish$/, AuthGuard, async (ctx) => {});
+FarmRoute.hears(/^ferma ochish$/, AuthGuard, async (ctx) => {
+	ctx.reply(await FarmService.Newfarm(ctx));
+});

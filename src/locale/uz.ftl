@@ -6,16 +6,17 @@ bank=
     Pul💲: {$money}
     Level⏫: {$level}
     Hafsizlik🔐: {$secLevel}
-bank=
+farm=
     Ism👤: {$name}
     Bitcoin💲: {$bitcoin}
-    VideoKartalar⏫: {$VideoCards}
+    VideoKartalar⏫: {$videocards}
 
 new_bank=Bank ochildi.
+new_farm=Ferma ochildi.
 have_bank=Sizda bank bor.
+have_farm=Sizda ferma bor.
 no_bank=Sizda bank yo'q. Bank ochish uchun "bank ochish" deb ayting
-no_farm=Sizda ferma yo'q. Bank ochish uchun "ferma ochish" deb ayting
-have_bank=Sizda ferma bor.
+no_farm=Sizda ferma yo'q. Ferma ochish uchun "ferma ochish" deb ayting
 bank_take=Pullarni olish
 bank_upgrade=Bankni kuchaytirish
 bank_no_money=Bankda pul yo'q

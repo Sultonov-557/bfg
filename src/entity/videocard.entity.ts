@@ -14,7 +14,7 @@ export class VideoCard {
 	@Column()
 	time: number;
 
-	@OneToOne(() => Farm)
+	@OneToOne(() => Farm, (farm) => farm.videocards)
 	@JoinColumn()
 	farm: Farm;
 }
