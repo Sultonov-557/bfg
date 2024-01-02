@@ -20,11 +20,11 @@ export class User {
 	@Column({ default: 500 })
 	money: number;
 
-	@OneToOne(() => Bank)
+	@OneToOne(() => Bank, (bank) => bank.user)
 	@JoinColumn()
 	bank: Bank;
 
-	@OneToOne(() => Farm)
+	@OneToOne(() => Farm, (farm) => farm.user)
 	@JoinColumn()
 	farm: Farm;
 }

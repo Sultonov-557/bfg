@@ -1,14 +1,18 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
-import { VideoCardModel } from "../common/enums/VIdeoCardModel.enum";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Farm } from "./farm.entity";
+import { VideoCardModel } from "./videocardmodel.entity";
 
 @Entity()
 export class VideoCard {
 	@PrimaryGeneratedColumn()
 	ID: number;
 
-	@Column({ enum: VideoCardModel, type: "enum" })
+	@ManyToOne(() => VideoCardModel)
+	@JoinColumn()
 	model: VideoCardModel;
+
+	@Column()
+	time: number;
 
 	@OneToOne(() => Farm)
 	@JoinColumn()
