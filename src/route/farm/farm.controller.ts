@@ -33,4 +33,25 @@ export class FarmController {
 		await UserRepo.save(user);
 		return { success: true };
 	}
+
+	static async updateFarms(){
+		const banks = await FarmRepo.find({ where: { LastMoneyGivenTime: LessThan(Date.now() - GIVE_MONEY_TIME) } });
+		for (let bank of banks) {
+			await this.UpdateForMoney(bank);
+		}
+	}
+
+	static async updateFarm(ID:number){
+		const farm = await FarmRepo.findOneBy({ ID });
+		if (!farm) return { success: false, errcode: 1 };
+		const user = await UserRepo.findOneBy({ bank });
+		if (!user) return { success: false, errcode: 2 };
+		const cost = bank.level * LEVEL_COST_MULTIPLIER;
+		const success = await UserController.RemoveMoney(user.ID, cost);
+		if (success) {
+			farm.level += 1;
+			await FarmRepo.save(farm);
+		}
+		return { success, errcode: 3 };
+	}
 }
