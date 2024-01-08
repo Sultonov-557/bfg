@@ -6,6 +6,9 @@ const FarmRepo = DataBase.getRepository(Farm);
 const UserRepo = DataBase.getRepository(User);
 
 const FARM_COST = 5000;
+const GIVE_MONEY_TIME=1000*60*60
+const GIVE_MONEY=0.2
+const LEVEL_MULTIPLIER=1
 
 export class FarmController {
 	static async farm(ID: number) {
@@ -44,7 +47,7 @@ export class FarmController {
 	static async updateFarm(farm:Farm){
 		if (farm.LastMoneyGivenTime < Date.now() - GIVE_MONEY_TIME) {
 			const giveCount = parseInt((Date.now() - farm.LastMoneyGivenTime) / GIVE_MONEY_TIME + "");
-			const giveMoney = parseInt((GIVE_MONEY + farm.level * LEVEL_MULTIPLIER) * giveCount + "");
+			const giveMoney = parseInt((GIVE_MONEY *(farm.level * LEVEL_MULTIPLIER)) * giveCount + "");
 			await this.AddMoney(farm.ID, giveMoney, true);
 		}
 	}
