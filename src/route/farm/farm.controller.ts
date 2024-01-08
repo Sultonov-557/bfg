@@ -37,11 +37,31 @@ export class FarmController {
 	static async updateFarms(){
 		const banks = await FarmRepo.find({ where: { LastMoneyGivenTime: LessThan(Date.now() - GIVE_MONEY_TIME) } });
 		for (let bank of banks) {
-			await this.UpdateForMoney(bank);
+			await this.updateFarm(bank);
 		}
 	}
 
-	static async updateFarm(ID:number){
+	static async updateFarm(farm:Farm){
+		if (farm.LastMoneyGivenTime < Date.now() - GIVE_MONEY_TIME) {
+			const giveCount = parseInt((Date.now() - farm.LastMoneyGivenTime) / GIVE_MONEY_TIME + "");
+			const giveMoney = parseInt((GIVE_MONEY + farm.level * LEVEL_MULTIPLIER) * giveCount + "");
+			await this.AddMoney(farm.ID, giveMoney, true);
+		}
+	}
+
+	static async AddMoney(ID:number,amount,resetTime:boolean=false){
+		const farm = await FarmRepo.findOneBy({ ID });
+		if (!farm) return false;
+		farm.money += amount;
+		if (resetTime) {
+			farm.LastMoneyGivenTime = Date.now();
+		}
+
+		await FarmRepo.save(farm);
+		return true;
+	}
+
+	static async upgradeFarm(ID:number){
 		const farm = await FarmRepo.findOneBy({ ID });
 		if (!farm) return { success: false, errcode: 1 };
 		const user = await UserRepo.findOneBy({ bank });
