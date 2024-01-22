@@ -9,7 +9,7 @@ export class VideoCardModel {
 	type: string;
 
 	@Column()
-	Power: number;
+	power: number;
 
 	@Column()
 	durability: number;

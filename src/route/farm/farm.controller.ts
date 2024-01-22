@@ -50,7 +50,7 @@ export class FarmController {
 			const giveCount = parseInt((Date.now() - farm.LastMoneyGivenTime) / GIVE_MONEY_TIME + "");
 			let level = 0;
 			for (let videocard of farm.videocards) {
-				level += videocard.model.Power;
+				level += videocard.power;
 			}
 			const giveMoney = parseInt(GIVE_MONEY * (level * LEVEL_MULTIPLIER) * giveCount + "");
 			await this.AddMoney(farm.ID, giveMoney, true);

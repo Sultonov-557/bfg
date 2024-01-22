@@ -11,6 +11,10 @@ farm=
     Bitcoin💲: {$bitcoin}
     VideoKartalar⏫: {$videocards}
 
+videocards=sizning videolartalaringiz:
+    {$videocards}
+videocard_shop=videokartalar:
+new_videocard=videokarta sotib olindi
 new_bank=Bank ochildi.
 new_farm=Ferma ochildi.
 have_bank=Sizda bank bor.

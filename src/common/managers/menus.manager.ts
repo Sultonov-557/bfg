@@ -8,7 +8,7 @@ export const Menus = { balanceMenu, bankMenu, videocardShopMenu };
 export const MenusArray = Object.values(Menus);
 
 export function loadMenus(bot: Bot<NewContext>) {
-  for (let menu of MenusArray) {
-    bot.use(menu);
-  }
+	for (let menu of MenusArray) {
+		bot.use(menu);
+	}
 }

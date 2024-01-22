@@ -3,7 +3,7 @@ import { NewContext } from "../common/types/NewContext.type";
 import { BankService } from "../route/bank/bank.service";
 import { Menus } from "../common/managers/menus.manager";
 
-export const balanceMenu = new Menu<NewContext>("balance");
+export const balanceMenu = new Menu<NewContext>("balance", { onMenuOutdated: (ctx) => ctx.deleteMessage() });
 
 balanceMenu.text("bank", async (ctx) => {
 	const message = await BankService.GetBank(ctx);

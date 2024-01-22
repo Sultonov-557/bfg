@@ -2,7 +2,7 @@ import { Menu } from "@grammyjs/menu";
 import { NewContext } from "../common/types/NewContext.type";
 import { BankService } from "../route/bank/bank.service";
 
-export const bankMenu = new Menu<NewContext>("bank");
+export const bankMenu = new Menu<NewContext>("bank", { onMenuOutdated: (ctx) => ctx.deleteMessage() });
 
 bankMenu.dynamic((ctx, range) => {
 	range

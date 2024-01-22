@@ -4,11 +4,7 @@ import { VideoCardModel } from "./videocardmodel.entity";
 
 @Entity()
 export class VideoCard extends VideoCardModel {
-	@ManyToOne(() => VideoCardModel)
-	@JoinColumn()
-	model: VideoCardModel;
-
-	@Column()
+	@Column({ default: Date.now(), type: "bigint" })
 	createdTime: number;
 
 	@OneToOne(() => Farm, (farm) => farm.videocards)
