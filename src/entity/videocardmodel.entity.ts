@@ -6,11 +6,14 @@ export class VideoCardModel {
 	ID: number;
 
 	@Column()
-	name: string;
+	type: string;
 
 	@Column()
 	Power: number;
 
 	@Column()
-	WorkTime: number;
+	durability: number;
+
+	@Column()
+	cost: number;
 }

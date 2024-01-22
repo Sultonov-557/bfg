@@ -1,18 +1,15 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import { Farm } from "./farm.entity";
 import { VideoCardModel } from "./videocardmodel.entity";
 
 @Entity()
-export class VideoCard {
-	@PrimaryGeneratedColumn()
-	ID: number;
-
+export class VideoCard extends VideoCardModel {
 	@ManyToOne(() => VideoCardModel)
 	@JoinColumn()
 	model: VideoCardModel;
 
 	@Column()
-	time: number;
+	createdTime: number;
 
 	@OneToOne(() => Farm, (farm) => farm.videocards)
 	@JoinColumn()
