@@ -19,5 +19,5 @@ export const DBConfig: DataSourceOptions = {
 	cache: true,
 	bigNumberStrings: true,
 	supportBigNumbers: true,
-	relationLoadStrategy: "query",
+	insecureAuth: true,
 };
