@@ -79,20 +79,6 @@ export class BankController {
 		return { success: true };
 	}
 
-	static async CheckUpdatesForMoney() {
-		const banks = await BankRepo.find({ where: { LastMoneyGivenTime: LessThan(Date.now() - GIVE_MONEY_TIME) } });
-		for (let bank of banks) {
-			await this.UpdateForMoney(bank);
-		}
-	}
-
-	static async CheckUpdatesForRobbery() {
-		const banks = await BankRepo.find({ where: { LastRobberyTime: LessThan(Date.now() - ROBBERY_TIME) } });
-		for (let bank of banks) {
-			await this.UpdateForRobbery(bank);
-		}
-	}
-
 	static async UpdateForMoney(bank: Bank) {
 		if (bank.LastMoneyGivenTime < Date.now() - GIVE_MONEY_TIME) {
 			const giveCount = parseInt((Date.now() - bank.LastMoneyGivenTime) / GIVE_MONEY_TIME + "");

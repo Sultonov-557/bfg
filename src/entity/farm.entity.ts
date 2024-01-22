@@ -15,4 +15,7 @@ export class Farm {
 
 	@OneToOne(() => User, (user) => user.farm)
 	user: User;
+
+	@Column({ default: Date.now(), type: "bigint" })
+	LastMoneyGivenTime: number;
 }

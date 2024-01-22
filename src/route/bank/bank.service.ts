@@ -6,12 +6,14 @@ export class BankService {
 		if (!ctx.user.bank) {
 			return { text: ctx.t("no_bank"), keyboard: false };
 		}
+		await BankController.UpdateForMoney(ctx.user.bank);
+		await BankController.UpdateForRobbery(ctx.user.bank);
 
 		return {
 			text: ctx.t("bank", {
 				money: ctx.user.bank.money,
 				level: ctx.user.bank.level,
-				secLevel: ctx.user.bank.securityLevel
+				secLevel: ctx.user.bank.securityLevel,
 			}),
 			keyboard: true,
 		};

@@ -2,14 +2,8 @@ import { Composer } from "grammy";
 import { NewContext } from "../../common/types/NewContext.type";
 import { BankService } from "./bank.service";
 import { Menus } from "../../common/managers/menus.manager";
-import { BankController } from "./bank.controller";
 
 export const BankRoute = new Composer<NewContext>();
-
-setInterval(async () => {
-	await BankController.CheckUpdatesForMoney();
-	await BankController.CheckUpdatesForRobbery();
-}, 60000);
 
 BankRoute.hears(/^bank$/i, async (ctx) => {
 	const message = await BankService.GetBank(ctx);

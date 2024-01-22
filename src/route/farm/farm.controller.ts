@@ -1,3 +1,4 @@
+import { LessThan } from "typeorm";
 import { DataBase } from "../../common/managers/database.manager";
 import { Farm } from "../../entity/farm.entity";
 import { User } from "../../entity/user.entity";
@@ -5,10 +6,10 @@ import { User } from "../../entity/user.entity";
 const FarmRepo = DataBase.getRepository(Farm);
 const UserRepo = DataBase.getRepository(User);
 
-const FARM_COST = 5000;
-const GIVE_MONEY_TIME=1000*60*60
-const GIVE_MONEY=0.2
-const LEVEL_MULTIPLIER=1
+const FARM_COST = 50000;
+const GIVE_MONEY_TIME = 1000 * 60 * 60;
+const GIVE_MONEY = 0.1;
+const LEVEL_MULTIPLIER = 1;
 
 export class FarmController {
 	static async farm(ID: number) {
@@ -37,44 +38,34 @@ export class FarmController {
 		return { success: true };
 	}
 
-	static async updateFarms(){
+	static async updateFarms() {
 		const banks = await FarmRepo.find({ where: { LastMoneyGivenTime: LessThan(Date.now() - GIVE_MONEY_TIME) } });
 		for (let bank of banks) {
 			await this.updateFarm(bank);
 		}
 	}
 
-	static async updateFarm(farm:Farm){
+	static async updateFarm(farm: Farm) {
 		if (farm.LastMoneyGivenTime < Date.now() - GIVE_MONEY_TIME) {
 			const giveCount = parseInt((Date.now() - farm.LastMoneyGivenTime) / GIVE_MONEY_TIME + "");
-			const giveMoney = parseInt((GIVE_MONEY *(farm.level * LEVEL_MULTIPLIER)) * giveCount + "");
+			let level = 0;
+			for (let videocard of farm.videocards) {
+				level += videocard.model.Power;
+			}
+			const giveMoney = parseInt(GIVE_MONEY * (level * LEVEL_MULTIPLIER) * giveCount + "");
 			await this.AddMoney(farm.ID, giveMoney, true);
 		}
 	}
 
-	static async AddMoney(ID:number,amount,resetTime:boolean=false){
+	static async AddMoney(ID: number, amount: number, resetTime: boolean = false) {
 		const farm = await FarmRepo.findOneBy({ ID });
 		if (!farm) return false;
-		farm.money += amount;
+		farm.bitcoin += amount;
 		if (resetTime) {
 			farm.LastMoneyGivenTime = Date.now();
 		}
 
 		await FarmRepo.save(farm);
 		return true;
-	}
-
-	static async upgradeFarm(ID:number){
-		const farm = await FarmRepo.findOneBy({ ID });
-		if (!farm) return { success: false, errcode: 1 };
-		const user = await UserRepo.findOneBy({ bank });
-		if (!user) return { success: false, errcode: 2 };
-		const cost = bank.level * LEVEL_COST_MULTIPLIER;
-		const success = await UserController.RemoveMoney(user.ID, cost);
-		if (success) {
-			farm.level += 1;
-			await FarmRepo.save(farm);
-		}
-		return { success, errcode: 3 };
 	}
 }
