@@ -4,14 +4,15 @@ import { Bank } from "../../entity/bank.entity";
 import { Farm } from "../../entity/farm.entity";
 import { VideoCard } from "../../entity/videocard.entity";
 import { VideoCardModel } from "../../entity/videocardmodel.entity";
+import { env } from "./env.config";
 
 export const DBConfig: DataSourceOptions = {
 	type: "mysql",
-	host: "localhost",
-	port: 3306,
-	username: "root",
-	password: "root",
-	database: "bfg",
+	host: env.DB_HOST,
+	port: env.DB_PORT,
+	username: env.DB_USER,
+	password: env.DB_PASSWORD,
+	database: env.DB_NAME,
 	synchronize: true,
 	entities: [User, Bank, Farm, VideoCard, VideoCardModel],
 	connectTimeout: 20000,
