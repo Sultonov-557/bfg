@@ -12,4 +12,14 @@ export class AdminService {
       return ctx.t("error");
     }
   }
+
+  static async banUser(ctx: NewContext) {
+    const user = await AdminController.BanUser(ctx.message?.reply_to_message?.from?.id || 0);
+
+    if (user) {
+      return ctx.t("admin_banned", { name: user.name });
+    } else {
+      return ctx.t("error");
+    }
+  }
 }

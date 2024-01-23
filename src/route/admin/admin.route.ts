@@ -10,3 +10,7 @@ export const AdminRoute = new Composer<NewContext>();
 AdminRoute.hears(/^info$/i, RoleGuard([RoleEnum.Admin], true), ReplyGuard, async (ctx) => {
   ctx.reply(await AdminService.getUser(ctx));
 });
+
+AdminRoute.hears(/^ban$/i, RoleGuard([RoleEnum.Admin], true), ReplyGuard, async (ctx) => {
+  ctx.reply(await AdminService.banUser(ctx));
+});

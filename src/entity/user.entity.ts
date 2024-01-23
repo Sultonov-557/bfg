@@ -5,26 +5,29 @@ import { RoleEnum } from "../common/enums/Role.enum";
 
 @Entity()
 export class User {
-	@PrimaryGeneratedColumn()
-	ID: number;
+  @PrimaryGeneratedColumn()
+  ID: number;
 
-	@Column()
-	name: string;
+  @Column()
+  name: string;
 
-	@Column({ type: "enum", enum: RoleEnum, default: RoleEnum.Normal })
-	role: RoleEnum;
+  @Column({ type: "enum", enum: RoleEnum, default: RoleEnum.Normal })
+  role: RoleEnum;
 
-	@Column()
-	telegramID: string;
+  @Column({ default: false })
+  banned: boolean;
 
-	@Column({ default: 500 })
-	money: number;
+  @Column()
+  telegramID: string;
 
-	@OneToOne(() => Bank, (bank) => bank.user)
-	@JoinColumn()
-	bank: Bank;
+  @Column({ default: 500 })
+  money: number;
 
-	@OneToOne(() => Farm, (farm) => farm.user)
-	@JoinColumn()
-	farm: Farm;
+  @OneToOne(() => Bank, (bank) => bank.user)
+  @JoinColumn()
+  bank: Bank;
+
+  @OneToOne(() => Farm, (farm) => farm.user)
+  @JoinColumn()
+  farm: Farm;
 }

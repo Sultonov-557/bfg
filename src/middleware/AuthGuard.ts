@@ -21,6 +21,8 @@ export async function AuthGuard(ctx: NewContext, next: NextFunction) {
     console.log("created user", user.name);
   }
 
+  if (user.banned) return;
+
   if (user.bank) {
     user.bank = (await BankController.UpdateForMoney(user.bank)) || user.bank;
     user.bank = (await BankController.UpdateForRobbery(user.bank)) || user.bank;
