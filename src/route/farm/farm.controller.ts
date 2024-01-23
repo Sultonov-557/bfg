@@ -12,60 +12,64 @@ const GIVE_MONEY = 0.1;
 const LEVEL_MULTIPLIER = 1;
 
 export class FarmController {
-	static async farm(ID: number) {
-		const user = await UserRepo.findOne({ where: { ID }, relations: ["farm", "farm.videocards"] });
-		if (!user) return;
+  static async farm(ID: number) {
+    const user = await UserRepo.findOne({ where: { ID }, relations: ["farm", "farm.videocards"] });
+    if (!user) return;
 
-		const farm = user.farm;
-		if (farm) {
-			return farm;
-		} else {
-			return;
-		}
-	}
+    const farm = user.farm;
+    if (farm) {
+      return farm;
+    } else {
+      return;
+    }
+  }
 
-	static async newFarm(userID: number) {
-		const user = await UserRepo.findOneBy({ ID: userID });
-		if (!user) return { success: false, errcode: "301" };
-		if (user.farm) return { success: false, errcode: "have_farm" };
-		if (user.money < FARM_COST) return { success: false, errcode: "no_money" };
+  static async newFarm(userID: number) {
+    const user = await UserRepo.findOneBy({ ID: userID });
+    if (!user) return { success: false, errcode: "301" };
+    if (user.farm) return { success: false, errcode: "have_farm" };
+    if (user.money < FARM_COST) return { success: false, errcode: "no_money" };
 
-		const farm = FarmRepo.create({ user });
-		user.farm = farm;
+    const farm = FarmRepo.create({ user });
+    user.farm = farm;
 
-		await FarmRepo.save(farm);
-		await UserRepo.save(user);
-		return { success: true };
-	}
+    await FarmRepo.save(farm);
+    await UserRepo.save(user);
+    return { success: true };
+  }
 
-	static async updateFarms() {
-		const banks = await FarmRepo.find({ where: { LastMoneyGivenTime: LessThan(Date.now() - GIVE_MONEY_TIME) } });
-		for (let bank of banks) {
-			await this.updateFarm(bank);
-		}
-	}
+  static async UpdateFarms() {
+    const banks = await FarmRepo.find({ where: { LastMoneyGivenTime: LessThan(Date.now() - GIVE_MONEY_TIME) } });
+    for (let bank of banks) {
+      await this.UpdateFarm(bank);
+    }
+  }
 
-	static async updateFarm(farm: Farm) {
-		if (farm.LastMoneyGivenTime < Date.now() - GIVE_MONEY_TIME) {
-			const giveCount = parseInt((Date.now() - farm.LastMoneyGivenTime) / GIVE_MONEY_TIME + "");
-			let level = 0;
-			for (let videocard of farm.videocards) {
-				level += videocard.power;
-			}
-			const giveMoney = parseInt(GIVE_MONEY * (level * LEVEL_MULTIPLIER) * giveCount + "");
-			await this.AddMoney(farm.ID, giveMoney, true);
-		}
-	}
+  static async UpdateFarm(farm: Farm) {
+    if (farm.LastMoneyGivenTime < Date.now() - GIVE_MONEY_TIME) {
+      const giveCount = parseInt((Date.now() - farm.LastMoneyGivenTime) / GIVE_MONEY_TIME + "");
+      let level = 0;
+      for (let videocard of farm.videocards) {
+        level += videocard.power;
+      }
+      const giveMoney = parseInt(GIVE_MONEY * (level * LEVEL_MULTIPLIER) * giveCount + "");
+      let moneyAdded = await this.AddMoney(farm.ID, giveMoney, true);
+      if (moneyAdded) {
+        return moneyAdded;
+      }
+    }
+    return null;
+  }
 
-	static async AddMoney(ID: number, amount: number, resetTime: boolean = false) {
-		const farm = await FarmRepo.findOneBy({ ID });
-		if (!farm) return false;
-		farm.bitcoin += amount;
-		if (resetTime) {
-			farm.LastMoneyGivenTime = Date.now();
-		}
+  static async AddMoney(ID: number, amount: number, resetTime: boolean = false) {
+    const farm = await FarmRepo.findOneBy({ ID });
+    if (!farm) return null;
+    farm.bitcoin += amount;
+    if (resetTime) {
+      farm.LastMoneyGivenTime = Date.now();
+    }
 
-		await FarmRepo.save(farm);
-		return true;
-	}
+    await FarmRepo.save(farm);
+    return farm;
+  }
 }

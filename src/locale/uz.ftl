@@ -11,6 +11,18 @@ farm=
     Bitcoin💲: {$bitcoin}
     VideoKartalar⏫: {$videocards}
 
+help=
+    Top - Top 10 o'yinchilarni ko'rish
+    B - Hisobingizni ko'rish
+    Bank - Bankingizni ko'rish
+    Ferma - Fermangizni ko'rish
+    Bank ochish - Yangi bank ochish
+    Ferma ochish - Yangi ferma ochish
+    Videokartalar - Videokartalarni ko'rish
+    Videokarta olish - Yangi videokarta olish
+
+start=Salom botimizga hush kelibsiz buyruqlar ro'yhati uchun help deb yozing
+
 videocards=sizning videolartalaringiz:
     {$videocards}
 videocard_shop=videokartalar:
