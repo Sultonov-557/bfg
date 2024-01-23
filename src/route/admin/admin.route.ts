@@ -14,3 +14,7 @@ AdminRoute.hears(/^info$/i, RoleGuard([RoleEnum.Admin], true), ReplyGuard, async
 AdminRoute.hears(/^ban$/i, RoleGuard([RoleEnum.Admin], true), ReplyGuard, async (ctx) => {
   ctx.reply(await AdminService.banUser(ctx));
 });
+
+AdminRoute.hears(/^setrole (.+)$/i, RoleGuard([RoleEnum.Admin], true), ReplyGuard, async (ctx) => {
+  ctx.reply(await AdminService.setRole(ctx));
+});

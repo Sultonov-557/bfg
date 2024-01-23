@@ -1,3 +1,4 @@
+import { RoleEnum } from "../../common/enums/Role.enum";
 import { NewContext } from "../../common/types/NewContext.type";
 import { AdminController } from "./admin.controller";
 
@@ -21,5 +22,19 @@ export class AdminService {
     } else {
       return ctx.t("error");
     }
+  }
+
+  static async setRole(ctx: NewContext) {
+    if (ctx.match) {
+      const user = await AdminController.SetRole(
+        ctx.message?.reply_to_message?.from?.id || 0,
+        RoleEnum[ctx.match[1] as keyof typeof RoleEnum]
+      );
+
+      if (user) {
+        return ctx.t("admin_setrole", { name: user.name, role: user.role });
+      }
+    }
+    return ctx.t("error");
   }
 }

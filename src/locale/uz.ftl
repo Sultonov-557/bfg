@@ -52,3 +52,5 @@ admin_info=
     Ism👤: {$name}
     Pul💲: {$money}
     Role🛡: {$role}
+admin_banned={$name} ban qilindi
+admin_setrole=${name} ning roli ${role} ga o'zgartirildi
