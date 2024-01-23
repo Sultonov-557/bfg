@@ -1,5 +1,6 @@
 balance=
     Ism👤: {$name}
+    Role🛡: {$role}
     Pul💲: {$money}
 bank=
     Ism👤: {$name}
@@ -44,3 +45,10 @@ top10=
     Top 10 o'yinchilar:
     {$list}
 no_access=siz bundey qila olmaysiz
+error=muomo yuzaga keldi
+
+admin_info=
+    ID🆔 : {$ID}
+    Ism👤: {$name}
+    Pul💲: {$money}
+    Role🛡: {$role}

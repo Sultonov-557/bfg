@@ -12,28 +12,28 @@ export const bot = new Bot<NewContext>(env.TOKEN);
 start();
 
 async function start() {
-	bot.start({
-		onStart: async () => {
-			console.log("bot started");
+  bot.start({
+    onStart: async () => {
+      console.log("bot started");
 
-			bot.use(AuthGuard);
+      bot.use(AuthGuard);
 
-			const i18n = new I18n<NewContext>({
-				defaultLocale: "uz",
-				directory: path.join(__dirname, "../src/locale"),
-				globalTranslationContext(ctx) {
-					return { name: ctx.user.name ?? "", money: ctx.user.money ?? "" };
-				},
-			});
+      const i18n = new I18n<NewContext>({
+        defaultLocale: "uz",
+        directory: path.join(__dirname, "../src/locale"),
+        globalTranslationContext(ctx) {
+          return { name: ctx.user.name ?? "", money: ctx.user.money ?? "", role: ctx.user.role ?? "" };
+        },
+      });
 
-			bot.use(i18n);
+      bot.use(i18n);
 
-			await DataBase.initialize();
+      await DataBase.initialize();
 
-			loadMenus(bot);
-			loadRoutes(bot);
-			console.log("bot loaded");
-		},
-		drop_pending_updates: true,
-	});
+      loadMenus(bot);
+      loadRoutes(bot);
+      console.log("bot loaded");
+    },
+    drop_pending_updates: true,
+  });
 }

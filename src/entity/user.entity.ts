@@ -11,7 +11,7 @@ export class User {
 	@Column()
 	name: string;
 
-	@Column({ type: "enum", enum: RoleEnum, default: RoleEnum.oddiy })
+	@Column({ type: "enum", enum: RoleEnum, default: RoleEnum.Normal })
 	role: RoleEnum;
 
 	@Column()
