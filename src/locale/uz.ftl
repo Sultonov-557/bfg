@@ -24,6 +24,7 @@ help=
 
 start=Salom botimizga hush kelibsiz buyruqlar ro'yhati uchun help deb yozing
 
+money_give=pul o'tkazildi
 videocards=sizning videolartalaringiz:
     {$videocards}
 videocard_shop=videokartalar:

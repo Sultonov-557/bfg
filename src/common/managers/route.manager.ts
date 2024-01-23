@@ -11,7 +11,7 @@ export const Routes = { UserRoute, BankRoute, FarmRoute, CommonRoute, VideoCardR
 export const RoutesArray = Object.values(Routes);
 
 export function loadRoutes(bot: Bot<NewContext>) {
-  for (let route of RoutesArray) {
-    bot.use(route);
-  }
+	for (let route of RoutesArray) {
+		bot.use(route);
+	}
 }
