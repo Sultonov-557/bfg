@@ -2,6 +2,7 @@ import { LessThan } from "typeorm";
 import { DataBase } from "../../common/managers/database.manager";
 import { Farm } from "../../entity/farm.entity";
 import { User } from "../../entity/user.entity";
+import { VideoCardController } from "../videocards/videocard.controller";
 
 const FarmRepo = DataBase.getRepository(Farm);
 const UserRepo = DataBase.getRepository(User);
@@ -46,13 +47,19 @@ export class FarmController {
   }
 
   static async UpdateFarm(farm: Farm) {
+    console.log(farm.LastMoneyGivenTime < Date.now() - GIVE_MONEY_TIME, "updateFarm");
+
     if (farm.LastMoneyGivenTime < Date.now() - GIVE_MONEY_TIME) {
       const giveCount = parseInt((Date.now() - farm.LastMoneyGivenTime) / GIVE_MONEY_TIME + "");
+      console.log(giveCount, "givecount");
+
       let level = 0;
+      if (!farm.videocards) return null;
       for (let videocard of farm.videocards) {
         level += videocard.power;
+        await VideoCardController.Damage(videocard.ID, giveCount);
       }
-      const giveMoney = parseInt(GIVE_MONEY * (level * LEVEL_MULTIPLIER) * giveCount + "");
+      const giveMoney = parseFloat((GIVE_MONEY * (level * LEVEL_MULTIPLIER) * giveCount).toFixed(2));
       let moneyAdded = await this.AddMoney(farm.ID, giveMoney, true);
       if (moneyAdded) {
         return moneyAdded;
@@ -69,7 +76,6 @@ export class FarmController {
       farm.LastMoneyGivenTime = Date.now();
     }
 
-    await FarmRepo.save(farm);
-    return farm;
+    return await FarmRepo.save(farm);
   }
 }

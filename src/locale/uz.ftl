@@ -9,7 +9,7 @@ bank=
     Hafsizlik🔐: {$secLevel}
 farm=
     Ism👤: {$name}
-    Bitcoin💲: {$bitcoin}
+    Bitcoin🪙: {$bitcoin}
     VideoKartalar⏫: {$videocards}
 
 help=

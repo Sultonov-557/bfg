@@ -13,7 +13,7 @@ export async function AuthGuard(ctx: NewContext, next: NextFunction) {
 
   const telegramID = ctx.from.id + "";
 
-  let user = await userRepo.findOne({ where: { telegramID }, relations: ["bank"] });
+  let user = await userRepo.findOne({ where: { telegramID }, relations: ["bank", "farm", "farm.videocards"] });
 
   if (!user) {
     user = await userRepo.create({ name: ctx.from.username || clearString(ctx.from.first_name), telegramID });
