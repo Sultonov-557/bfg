@@ -39,6 +39,7 @@ export class UserController {
 	}
 
 	static async GiveMoney(fromID: number, toID: number, money: number) {
+		if (fromID === toID) return { success: false, errcode: "equal_ids" };
 		const remove = await this.RemoveMoney(fromID, money);
 		if (!remove) return { success: false, errcode: "no_money" };
 		const add = await this.AddMoney(toID, money);
