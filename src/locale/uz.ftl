@@ -27,7 +27,7 @@ start=Salom botimizga hush kelibsiz buyruqlar ro'yhati uchun help deb yozing
 money_give=pul o'tkazildi
 videocards=sizning videolartalaringiz:
     {$videocards}
-videocard_shop=videokartalar:
+videocard_shop=videokartalar
 new_videocard=videokarta sotib olindi
 new_bank=Bank ochildi.
 new_farm=Ferma ochildi.
@@ -36,6 +36,7 @@ have_farm=Sizda ferma bor.
 no_bank=Sizda bank yo'q. Bank ochish uchun "bank ochish" deb ayting
 no_farm=Sizda ferma yo'q. Ferma ochish uchun "ferma ochish" deb ayting
 bank_take=Pullarni olish
+farm_take=Bitcoinni olish
 bank_upgrade=Bankni kuchaytirish
 bank_no_money=Bankda pul yo'q
 bank_take_success=Bankdan pullar olindi
