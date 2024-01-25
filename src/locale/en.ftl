@@ -1,43 +1,43 @@
 # Define variables for player's balance, bank, and farm
 balance = 
-    Ism👤: {name}    
+    Name👤: {name}    
     Role🛡: {role}    
-    Pul💲: {money}
-    Bitcoin🪙: {bitcoin}
+    Money💲: {money}
 
 bank = 
-    Ism👤: {name}    
-    Pul💲: {money}    
+    Name👤: {name}    
+    Money💲: {money}    
     Level⏫: {level}    
-    Hafsizlik🔐: {secLevel}
+    Security🔐: {secLevel}
 
 farm = 
-    Ism👤: {name}    
+    Name👤: {name}    
     Bitcoin🪙: {bitcoin}    
-    Videokarta Karta⏫: {videocards}
+    Graphics Cards⏫: {videocards}
 
 # Define help menu options
 help = 
-    Top - Top 10 o'yinchilar
-    B - Balansni ko'rish
-    Bank - Bankni ko'rish
-    Ferma - Fermani ko'rish    
-    Bank ochish - Yangi bank ochish    
-    Ferma ochish - Yangi ferma ochish
-    Videokartalar - Videokartalarni ko'rish
-    Videokarta olish - Videokartalar sotib olish
+    Top - See the top 10 players    
+    B - View your account    
+    Bank - View your bank    
+    Farm - View your farm    
+    Open Bank - Open a new bank    
+    Open Farm - Open a new farm    
+    Graphics Cards - View your graphics cards    
+    Buy Graphics Card - Buy a new graphics card
 
 # Define start message for the bot
-start = Salom botga hush kelibsiz! buyruqlar ro'yhati uchun 'help' deb yozing
+start = Welcome to our bot! Type '/help' for a list of commands
 
 # Define messages for various actions
+
 videocards = 
-    Videokartalaringiz:
+    Your graphics cards:    
     {videocards}
     
-money_give = Pul o'tkazildi
-videocard_shop = Videokartalar sotib olish
-new_videocard = 
+money_give = Money transferred
+videocard_shop = Graphics cards
+new_videocard = Graphics card purchased
 new_bank = Bank opened.
 new_farm = Farm opened.
 have_bank = You have a bank.
@@ -62,6 +62,6 @@ admin_banned = {name} banned
 admin_setrole = {name}'s role changed to {role}
 admin_info = 
     ID🆔 : {ID}    
-    Ism👤: {name}    
+    Name👤: {name}    
     Money💲: {money}    
     Role🛡: {role}

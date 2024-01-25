@@ -1,4 +1,3 @@
-import { Tree } from "typeorm";
 import { NewContext } from "../../common/types/NewContext.type";
 import { FarmController } from "./farm.controller";
 
