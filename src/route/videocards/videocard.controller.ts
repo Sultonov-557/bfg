@@ -32,7 +32,8 @@ export class VideoCardController {
     if (!(await UserController.RemoveMoney(userID, videoCardModel.cost)))
       return { success: false, errcode: "no_money" };
 
-    const videocard = VideoCardRepo.create({ farm: user.farm, ...videoCardModel });
+    const { durability, power, type, cost } = videoCardModel;
+    const videocard = VideoCardRepo.create({ farm: user.farm, durability, power, type, cost });
     user.farm.videocards.push(videocard);
 
     await VideoCardRepo.save(videocard);

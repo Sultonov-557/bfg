@@ -9,6 +9,10 @@ import { loadMenus } from "./common/managers/menus.manager";
 import { AuthGuard } from "./middleware/AuthGuard";
 
 export const bot = new Bot<NewContext>(env.TOKEN);
+bot.catch(async (error) => {
+  console.error(`Error: ${error.message}`);
+  await error.ctx.reply("botda xatolik yuz berdi");
+});
 start();
 
 async function start() {
