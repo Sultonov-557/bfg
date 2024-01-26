@@ -6,13 +6,13 @@ import { ReplyGuard } from "../../middleware/ReplyGuard";
 export const UserRoute = new Composer<NewContext>();
 
 UserRoute.hears(/^berish (.+)$/i, ReplyGuard, async (ctx) => {
-	ctx.reply(await UserService.give(ctx));
+  ctx.reply(await UserService.giveMoney(ctx));
 });
 
 UserRoute.hears(/^b$/i, async (ctx) => {
-	ctx.reply(UserService.getUser(ctx));
+  ctx.reply(UserService.getUser(ctx));
 });
 
 UserRoute.hears(/^top$/i, async (ctx) => {
-	ctx.reply(await UserService.top10(ctx));
+  ctx.reply(await UserService.top10(ctx));
 });
