@@ -4,18 +4,18 @@ import { VideoCard } from "./videocard.entity";
 
 @Entity()
 export class Farm {
-	@PrimaryGeneratedColumn()
-	ID: number;
+  @PrimaryGeneratedColumn()
+  ID: number;
 
-	@Column({ default: 0 })
-	bitcoin: number;
+  @Column({ default: 0 })
+  bitcoin: number;
 
-	@OneToMany(() => VideoCard, (vd) => vd.farm)
-	videocards: VideoCard[];
+  @OneToMany(() => VideoCard, (vd) => vd.farm)
+  videocards: VideoCard[];
 
-	@OneToOne(() => User, (user) => user.farm)
-	user: User;
+  @OneToOne(() => User, (user) => user.farm)
+  user: User;
 
-	@Column({ default: Date.now(), type: "bigint" })
-	LastMoneyGivenTime: number;
+  @Column({ default: Date.now(), type: "bigint" })
+  LastMoneyGivenTime: number;
 }

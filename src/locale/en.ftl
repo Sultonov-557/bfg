@@ -1,43 +1,39 @@
-# Define variables for player's balance, bank, and farm
 balance = 
-    Name👤: {name}    
-    Role🛡: {role}    
-    Money💲: {money}
+    Name👤: {$name}    
+    Role🛡: {$role}    
+    Money💲: {$money}
+    Bitcoin🪙: {$bitcoin}
 
 bank = 
-    Name👤: {name}    
-    Money💲: {money}    
-    Level⏫: {level}    
-    Security🔐: {secLevel}
+    Name👤: {$name}    
+    Money💲: {$money}    
+    Level⏫: {$level}    
+    Security🔐: {$secLevel}
 
 farm = 
-    Name👤: {name}    
-    Bitcoin🪙: {bitcoin}    
-    Graphics Cards⏫: {videocards}
+    Name👤: {$name}    
+    Bitcoin🪙: {$bitcoin}    
+    Graphics Card⏫: {$videocards}
 
-# Define help menu options
 help = 
-    Top - See the top 10 players    
-    B - View your account    
-    Bank - View your bank    
-    Farm - View your farm    
-    Open Bank - Open a new bank    
-    Open Farm - Open a new farm    
-    Graphics Cards - View your graphics cards    
-    Buy Graphics Card - Buy a new graphics card
+    Top - Top 10 o'yinchilar
+    B - Balansni ko'rish
+    Bank - Bankni ko'rish
+    Ferma - Fermani ko'rish    
+    Bank ochish - Yangi bank ochish    
+    Ferma ochish - Yangi ferma ochish
+    Videokartalar - Videokartalarni ko'rish
+    Videokarta olish - Videokartalar sotib olish
 
-# Define start message for the bot
-start = Welcome to our bot! Type '/help' for a list of commands
-
-# Define messages for various actions
+start = Salom botga hush kelibsiz! buyruqlar ro'yhati uchun 'help' deb yozing
 
 videocards = 
-    Your graphics cards:    
-    {videocards}
+    Videokartalaringiz:
+    {$videocards}
     
-money_give = Money transferred
-videocard_shop = Graphics cards
-new_videocard = Graphics card purchased
+money_give = Money o'tkazildi
+videocard_shop = Videokartalar sotib olish
+new_videocard = 
 new_bank = Bank opened.
 new_farm = Farm opened.
 have_bank = You have a bank.
@@ -55,13 +51,13 @@ no_money = Insufficient funds
 no_bitcoin = You don't have any Bitcoin
 top10 = 
     Top 10 players:    
-    {list}
+    {$list}
 no_access = You don't have access to this
 error = An error occurred
-admin_banned = {name} banned
-admin_setrole = {name}'s role changed to {role}
+admin_banned = {$name} banned
+admin_setrole = {$name}'s role changed to {$role}
 admin_info = 
-    ID🆔 : {ID}    
-    Name👤: {name}    
-    Money💲: {money}    
-    Role🛡: {role}
+    ID🆔 : {$ID}    
+    Name👤: {$name}    
+    Money💲: {$money}    
+    Role🛡: {$role}

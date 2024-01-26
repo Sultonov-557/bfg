@@ -1,22 +1,20 @@
-# Define variables for player's balance, bank, and farm
 balance = 
-    Ism👤: {name}    
-    Role🛡: {role}    
-    Pul💲: {money}
-    Bitcoin🪙: {bitcoin}
+    Ism👤: {$name}    
+    Role🛡: {$role}    
+    Pul💲: {$money}
+    Bitcoin🪙: {$bitcoin}
 
 bank = 
-    Ism👤: {name}    
-    Pul💲: {money}    
-    Level⏫: {level}    
-    Hafsizlik🔐: {secLevel}
+    Ism👤: {$name}    
+    Pul💲: {$money}    
+    Level⏫: {$level}    
+    Hafsizlik🔐: {$secLevel}
 
 farm = 
-    Ism👤: {name}    
-    Bitcoin🪙: {bitcoin}    
-    Videokarta Karta⏫: {videocards}
+    Ism👤: {$name}    
+    Bitcoin🪙: {$bitcoin}    
+    Videokarta Karta⏫: {$videocards}
 
-# Define help menu options
 help = 
     Top - Top 10 o'yinchilar
     B - Balansni ko'rish
@@ -27,13 +25,11 @@ help =
     Videokartalar - Videokartalarni ko'rish
     Videokarta olish - Videokartalar sotib olish
 
-# Define start message for the bot
 start = Salom botga hush kelibsiz! buyruqlar ro'yhati uchun 'help' deb yozing
 
-# Define messages for various actions
 videocards = 
     Videokartalaringiz:
-    {videocards}
+    {$videocards}
     
 money_give = Pul o'tkazildi
 videocard_shop = Videokartalar sotib olish
@@ -55,13 +51,13 @@ no_money = Insufficient funds
 no_bitcoin = You don't have any Bitcoin
 top10 = 
     Top 10 players:    
-    {list}
+    {$list}
 no_access = You don't have access to this
 error = An error occurred
-admin_banned = {name} banned
-admin_setrole = {name}'s role changed to {role}
+admin_banned = {$name} banned
+admin_setrole = {$name}'s role changed to {$role}
 admin_info = 
-    ID🆔 : {ID}    
-    Ism👤: {name}    
-    Money💲: {money}    
-    Role🛡: {role}
+    ID🆔 : {$ID}    
+    Ism👤: {$name}    
+    Money💲: {$money}    
+    Role🛡: {$role}

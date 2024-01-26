@@ -19,10 +19,15 @@ async function start() {
       bot.use(AuthGuard);
 
       const i18n = new I18n<NewContext>({
-        defaultLocale: "uz",
+        defaultLocale: "en",
         directory: path.join(__dirname, "../src/locale"),
         globalTranslationContext(ctx) {
-          return { name: ctx.user.name ?? "", money: ctx.user.money ?? "", role: ctx.user.role ?? "" };
+          return {
+            name: ctx.user.name ?? "",
+            money: ctx.user.money ?? "",
+            role: ctx.user.role ?? "",
+            bitcoin: ctx.user.bitcoin,
+          };
         },
       });
 

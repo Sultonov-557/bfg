@@ -25,7 +25,7 @@ export class FarmService {
     if (message.errcode) {
       return ctx.t(message.errcode);
     } else {
-      return ctx.t("take_bitcoin");
+      return ctx.t("farm_take");
     }
   }
 }

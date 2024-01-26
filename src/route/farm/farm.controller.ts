@@ -67,9 +67,11 @@ export class FarmController {
 
   static async TakeBitcoin(userID: number) {
     const user = await UserRepo.findOne({ where: { ID: userID }, relations: ["farm"] });
+
     if (!user) return { success: false, errcode: "no_user" };
     if (!user.farm) return { success: false, errcode: "no_farm" };
-    if (user.farm.bitcoin >= 0) return { success: false, errcode: "no_bitcoin" };
+    console.log(user.farm.bitcoin);
+    if (user.farm.bitcoin <= 0) return { success: false, errcode: "no_bitcoin" };
     user.bitcoin += user.farm.bitcoin;
     user.farm.bitcoin = 0;
     await UserRepo.save(user);
