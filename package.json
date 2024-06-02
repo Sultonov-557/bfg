@@ -4,10 +4,8 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "node dist",
-		"build": "tsc",
-		"dev:build": "tsc --watch",
-		"dev:start": "node --watch dist"
+		"start": "tsc && node dist",
+		"dev": "tsc-watch --onSuccess \"node dist\""
 	},
 	"keywords": [],
 	"author": "",
@@ -18,7 +16,8 @@
 		"dotenv": "^16.3.1",
 		"envalid": "^8.0.0",
 		"grammy": "^1.19.2",
-		"mysql2": "^3.6.5",
+		"sqlite": "^5.1.1",
+		"sqlite3": "^5.1.7",
 		"typeorm": "^0.3.17"
 	},
 	"devDependencies": {

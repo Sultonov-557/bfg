@@ -5,7 +5,6 @@ import { DataBase } from "./common/managers/database.manager";
 import { NewContext } from "./common/types/NewContext.type";
 import { I18n } from "@grammyjs/i18n";
 import path from "path";
-import { loadMenus } from "./common/managers/menus.manager";
 import { AuthGuard } from "./middleware/AuthGuard";
 
 export const bot = new Bot<NewContext>(env.TOKEN);
@@ -30,7 +29,6 @@ async function start() {
 
       await DataBase.initialize();
 
-      loadMenus(bot);
       loadRoutes(bot);
       console.log("bot loaded");
     },

@@ -1,9 +1,10 @@
 import { NewContext } from "../../common/types/NewContext.type";
+import { mainMenu } from "../../menu/main.menu";
 import { UserController } from "./user.controller";
 
 export class UserService {
 	static getUser(ctx: NewContext) {
-		return ctx.t("balance");
+		ctx.reply(ctx.t("balance"), { reply_markup: mainMenu });
 	}
 
 	static async top10(ctx: NewContext) {
