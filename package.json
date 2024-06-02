@@ -16,9 +16,15 @@
 		"dotenv": "^16.3.1",
 		"envalid": "^8.0.0",
 		"grammy": "^1.19.2",
+<<<<<<< HEAD
 		"sqlite": "^5.1.1",
 		"sqlite3": "^5.1.7",
 		"typeorm": "^0.3.17"
+=======
+		"mysql2": "^3.6.5",
+		"typeorm": "^0.3.17",
+		"typescript": "^5.3.3"
+>>>>>>> 257da44e3b0ab6454a25fc37e4f75c1115aae037
 	},
 	"devDependencies": {
 		"@types/node": "^20.10.4"

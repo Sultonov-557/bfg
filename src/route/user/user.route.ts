@@ -5,10 +5,6 @@ import { ReplyGuard } from "../../middleware/ReplyGuard";
 
 export const UserRoute = new Composer<NewContext>();
 
-UserRoute.hears(/^berish (.+)$/i, ReplyGuard, async (ctx) => {
-	await UserService.give(ctx);
-});
-
 UserRoute.hears(/^b$/i, async (ctx) => {
 	await UserService.getUser(ctx);
 });

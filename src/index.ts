@@ -8,6 +8,10 @@ import path from "path";
 import { AuthGuard } from "./middleware/AuthGuard";
 
 export const bot = new Bot<NewContext>(env.TOKEN);
+bot.catch(async (error) => {
+  console.error(`Error: ${error.message}`);
+  await error.ctx.reply("botda xatolik yuz berdi");
+});
 start();
 
 async function start() {
@@ -18,10 +22,15 @@ async function start() {
       bot.use(AuthGuard);
 
       const i18n = new I18n<NewContext>({
-        defaultLocale: "uz",
+        defaultLocale: "en",
         directory: path.join(__dirname, "../src/locale"),
         globalTranslationContext(ctx) {
-          return { name: ctx.user.name ?? "", money: ctx.user.money ?? "", role: ctx.user.role ?? "" };
+          return {
+            name: ctx.user.name ?? "",
+            money: ctx.user.money ?? "",
+            role: ctx.user.role ?? "",
+            bitcoin: ctx.user.bitcoin,
+          };
         },
       });
 

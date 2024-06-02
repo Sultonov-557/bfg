@@ -23,9 +23,18 @@ export class User {
 	@Column({ default: 500 })
 	money: number;
 
+<<<<<<< HEAD
 	@OneToOne(() => Bank, (bank) => bank.user)
 	@JoinColumn()
 	bank: Bank;
+=======
+  @Column({ default: 0 })
+  bitcoin: number;
+
+  @OneToOne(() => Bank, (bank) => bank.user)
+  @JoinColumn()
+  bank: Bank;
+>>>>>>> 257da44e3b0ab6454a25fc37e4f75c1115aae037
 
 	@OneToOne(() => Farm, (farm) => farm.user)
 	@JoinColumn()

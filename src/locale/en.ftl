@@ -1,19 +1,19 @@
 balance = 
-    Ism👤: {$name}    
+    Name👤: {$name}    
     Role🛡: {$role}    
-    Pul💲: {$money}
+    Money💲: {$money}
     Bitcoin🪙: {$bitcoin}
 
 bank = 
-    Ism👤: {$name}    
-    Pul💲: {$money}    
+    Name👤: {$name}    
+    Money💲: {$money}    
     Level⏫: {$level}    
-    Hafsizlik🔐: {$secLevel}
+    Security🔐: {$secLevel}
 
 farm = 
-    Ism👤: {$name}    
+    Name👤: {$name}    
     Bitcoin🪙: {$bitcoin}    
-    Videokarta Karta⏫: {$videocards}
+    Graphics Card⏫: {$videocards}
 
 help = 
     Top - Top 10 o'yinchilar
@@ -31,9 +31,9 @@ videocards =
     Videokartalaringiz:
     {$videocards}
     
-money_give = Pul o'tkazildi
+money_give = Money o'tkazildi
 videocard_shop = Videokartalar sotib olish
-new_videocard = 
+new_videocard =You bought Graphics Card
 new_bank = Bank opened.
 new_farm = Farm opened.
 have_bank = You have a bank.
@@ -58,6 +58,6 @@ admin_banned = {$name} banned
 admin_setrole = {$name}'s role changed to {$role}
 admin_info = 
     ID🆔 : {$ID}    
-    Ism👤: {$name}    
+    Name👤: {$name}    
     Money💲: {$money}    
     Role🛡: {$role}
