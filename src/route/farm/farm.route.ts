@@ -1,20 +1,19 @@
 import { Composer } from "grammy";
-import { NewContext } from "../../common/types/NewContext.type";
+import { Context } from "../../common/types/Context.type";
 import { AuthGuard } from "../../middleware/AuthGuard";
 import { FarmService } from "./farm.service";
-import { Menus } from "../../common/managers/menus.manager";
 
-export const FarmRoute = new Composer<NewContext>();
+export const FarmRoute = new Composer<Context>();
 
 FarmRoute.hears(/^ferma$/i, AuthGuard, async (ctx) => {
-  const message = await FarmService.farm(ctx);
-  if (message.keyboard) {
-    await ctx.reply(message.message, { reply_markup: Menus.farmMenu });
-  } else {
-    await ctx.reply(message.message);
-  }
+	const message = await FarmService.farm(ctx);
+	if (message.keyboard) {
+		await ctx.reply(message.message);
+	} else {
+		await ctx.reply(message.message);
+	}
 });
 
 FarmRoute.hears(/^ferma ochish$/, AuthGuard, async (ctx) => {
-  ctx.reply(await FarmService.Newfarm(ctx));
+	ctx.reply(await FarmService.Newfarm(ctx));
 });

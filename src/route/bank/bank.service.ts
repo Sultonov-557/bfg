@@ -1,8 +1,8 @@
-import { NewContext } from "../../common/types/NewContext.type";
+import { Context } from "../../common/types/Context.type";
 import { BankController } from "./bank.controller";
 
 export class BankService {
-	static async GetBank(ctx: NewContext) {
+	static async GetBank(ctx: Context) {
 		if (!ctx.user.bank) {
 			return { text: ctx.t("no_bank"), keyboard: false };
 		}
@@ -20,7 +20,7 @@ export class BankService {
 		}
 	}
 
-	static async NewBank(ctx: NewContext) {
+	static async NewBank(ctx: Context) {
 		if (ctx.user.bank) {
 			return ctx.t("have_bank");
 		}
@@ -39,7 +39,7 @@ export class BankService {
 		return ctx.t("new_bank");
 	}
 
-	static async TakeMoney(ctx: NewContext) {
+	static async TakeMoney(ctx: Context) {
 		if (!ctx.user.bank) {
 			return ctx.t("no_bank");
 		}
@@ -51,7 +51,7 @@ export class BankService {
 		return ctx.t("bank_no_money");
 	}
 
-	static async UpgradeForMoney(ctx: NewContext) {
+	static async UpgradeForMoney(ctx: Context) {
 		if (!ctx.user.bank) {
 			return ctx.t("no_bank");
 		}
@@ -65,7 +65,7 @@ export class BankService {
 		}
 	}
 
-	static async UpgradeForSecrity(ctx: NewContext) {
+	static async UpgradeForSecrity(ctx: Context) {
 		if (!ctx.user.bank) {
 			return ctx.t("no_bank");
 		}

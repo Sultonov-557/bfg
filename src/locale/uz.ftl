@@ -33,7 +33,7 @@ videocards =
     
 money_give = Pul o'tkazildi
 videocard_shop = Videokartalar sotib olish
-new_videocard = 
+new_videocard = yangi Videokarta
 new_bank = Bank opened.
 new_farm = Farm opened.
 have_bank = You have a bank.

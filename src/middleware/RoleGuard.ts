@@ -1,13 +1,13 @@
 import { NextFunction } from "grammy";
-import { NewContext } from "../common/types/NewContext.type";
+import { Context } from "../common/types/Context.type";
 import { RoleEnum } from "../common/enums/Role.enum";
 
 export function RoleGuard(roles: RoleEnum[], reply: boolean = false) {
-  return (ctx: NewContext, next: NextFunction) => {
-    if (roles.includes(ctx.user.role)) {
-      next();
-    } else {
-      if (reply) ctx.reply(ctx.t("no_access"));
-    }
-  };
+	return (ctx: Context, next: NextFunction) => {
+		if (roles.includes(ctx.user.role)) {
+			next();
+		} else {
+			if (reply) ctx.reply(ctx.t("no_access"));
+		}
+	};
 }

@@ -1,9 +1,9 @@
 import { Composer } from "grammy";
-import { NewContext } from "../../common/types/NewContext.type";
+import { Context } from "../../common/types/Context.type";
 import { UserService } from "./user.service";
 import { ReplyGuard } from "../../middleware/ReplyGuard";
 
-export const UserRoute = new Composer<NewContext>();
+export const UserRoute = new Composer<Context>();
 
 UserRoute.hears(/^b$/i, async (ctx) => {
 	await UserService.getUser(ctx);
